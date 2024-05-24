@@ -33,7 +33,6 @@ const YoutubeIframe = (props, ref) => {
     play = false,
     mute = false,
     volume = 100,
-    viewContainerStyle,
     webViewStyle,
     webViewProps,
     useLocalHTML,
@@ -114,6 +113,21 @@ const YoutubeIframe = (props, ref) => {
           PLAYER_FUNCTIONS.seekToScript(seconds, allowSeekAhead),
         );
       },
+      pause: () => {
+        webViewRef.current.injectJavaScript(
+          PLAYER_FUNCTIONS.pauseVideoScript(),
+        );
+      },
+      resume: () => {
+        webViewRef.current.injectJavaScript(
+          PLAYER_FUNCTIONS.resumeVideoScript(),
+        );
+      },
+      stop: () => {
+        webViewRef.current.injectJavaScript(
+          PLAYER_FUNCTIONS.stopVideoScript(),
+        );
+      }
     }),
     [],
   );
@@ -259,7 +273,7 @@ const YoutubeIframe = (props, ref) => {
   }, [useLocalHTML, contentScale, baseUrlOverride, allowWebViewZoom]);
 
   return (
-    <View style={[{height, width}, viewContainerStyle]}>
+    <View style={{height, width}}>
       <WebView
         bounces={false}
         originWhitelist={['*']}

@@ -27,6 +27,9 @@ export interface YoutubeIframeRef {
   getPlaybackRate: () => Promise<number>;
   getAvailablePlaybackRates: () => Promise<number[]>;
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+  pause: () => void;
+  resume: () => void;
+  stop: () => void;
 }
 
 export interface InitialPlayerParams {
@@ -40,11 +43,7 @@ export interface InitialPlayerParams {
   preventFullScreen?: boolean;
   playerLang?: String;
   iv_load_policy?: Number;
-  /** 
-   * @deprecated - This parameter has no effect since August 15, 2023
-   * https://developers.google.com/youtube/player_parameters#modestbranding
-   */
-  deprecated?: boolean;
+  modestbranding?: boolean;
   rel?: boolean;
 }
 
@@ -88,10 +87,6 @@ export interface YoutubeIframeProps {
    * Sets the volume. Accepts an integer between `0` and `100`.
    */
   volume?: number;
-  /**
-   * A style prop that will be given to the webview container
-   */
-  viewContainerStyle?: StyleProp<ViewStyle>;
   /**
    * A style prop that will be given to the webview
    */
